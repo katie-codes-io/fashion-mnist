@@ -9,11 +9,11 @@
 * LeNet-5
 
 ## How to run
-```python main.py <model>```
+```python main.py <model> [pretrained_model]```
 
 Example: 
 
-```python main.py LeNet```
+```python main.py LeNet pretrained_LeNet```
 
 Run without a model argument to get a list of available models.
 
