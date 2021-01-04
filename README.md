@@ -5,6 +5,7 @@
 ## Available models
 
 ### Convolutional Neural Networks
+* AlexNet
 * LeNet-5
 
 ## How to run
@@ -22,5 +23,6 @@ Based on training with 60,000 images and testing with 10,000 images from the Fas
 
 | Model | Accuracy | Precision | Recall |  
 | ----- | -------- | --------- | ------ |
+| AlexNet | 0.9135 | 0.9162 | 0.9118 |
 | LeNet-5 | 0.8910 | 0.9002 | 0.8835 |
 

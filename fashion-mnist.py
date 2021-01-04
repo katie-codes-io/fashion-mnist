@@ -10,6 +10,7 @@ if __name__ == "__main__":
     # available models
     models = {
         # CNN
+        "AlexNet": "CNN",
         "LeNet": "CNN"
     }
 
@@ -30,6 +31,7 @@ if __name__ == "__main__":
               "Models available\n"
               "=========================\n"
               "Convolutional Neural Networks:\n"
+              "AlexNet\n"
               "LeNet\n"
               "\n=========================")
         exit(0)

@@ -33,6 +33,31 @@ class CNN(Model):
             "ref": "LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998)."
                    "Gradient-based learning applied to document recognition."
                    "Proceedings of the IEEE, 86(11), 2278-2324."
+        },
+        "AlexNet": {
+            "layers": [
+                keras.layers.experimental.preprocessing.Resizing(227, 227, input_shape=(28, 28, 1), name="INPUT"),
+                keras.layers.Conv2D(96, 11, strides=4, padding="valid", activation="relu", input_shape=(227, 227, 1),
+                                    name="C1"),
+                keras.layers.MaxPool2D(pool_size=3, strides=2, padding="valid", name="S2", input_shape=(55, 55, 96)),
+                keras.layers.Conv2D(256, 5, strides=1, padding="same", activation="relu", name="C3",
+                                    input_shape=(27, 27, 96)),
+                keras.layers.MaxPool2D(pool_size=3, strides=2, padding="valid", name="S4", input_shape=(27, 27, 256)),
+                keras.layers.Conv2D(384, 3, strides=1, padding="same", activation="relu", name="C5",
+                                    input_shape=(13, 13, 256)),
+                keras.layers.Conv2D(384, 3, strides=1, padding="same", activation="relu", name="C6",
+                                    input_shape=(13, 13, 384)),
+                keras.layers.Conv2D(256, 3, strides=1, padding="same", activation="relu", name="C7",
+                                    input_shape=(13, 13, 384)),
+                keras.layers.MaxPool2D(pool_size=3, strides=2, padding="valid", name="S8", input_shape=(13, 13, 256)),
+                keras.layers.Flatten(),
+                keras.layers.Dense(4096, activation="relu", name="F9"),
+                keras.layers.Dense(4096, activation="relu", name="F10"),
+                keras.layers.Dense(10, activation="softmax", name="OUTPUT"),
+            ],
+            "ref": "Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2017)."
+                   "Imagenet classification with deep convolutional neural networks."
+                   "Communications of the ACM, 60(6), 84-90."
         }
     }
 
@@ -74,7 +99,7 @@ class CNN(Model):
 
         # fit the training data
         early_stopping_callback = keras.callbacks.EarlyStopping(patience=10)
-        self.model.fit(train_X, train_y, batch_size=self.batch_size, validation_split=0.1, epochs=2,
+        self.model.fit(train_X, train_y, batch_size=self.batch_size, validation_split=0.1, epochs=100,
                        callbacks=[early_stopping_callback])
 
         # print the model summary
@@ -104,4 +129,4 @@ class CNN(Model):
         """
         print("Exporting object")
 
-        dump_model(self.model, "LeNet")
+        dump_model(self.model, self.selected_model)
