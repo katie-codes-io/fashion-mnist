@@ -1,6 +1,8 @@
 import sys
 
 from models.cnn import CNN
+from models.rnn import RNN
+
 
 '''
 Main file for MNIST data analysis. Use command line parameter to select model to run.
@@ -12,7 +14,9 @@ if __name__ == "__main__":
         # CNN
         "AlexNet": "CNN",
         "LeNet": "CNN",
-        "ResNet": "CNN"
+        "ResNet": "CNN",
+        # RNN
+        "LSTM": "RNN"
     }
 
     # get command line args
@@ -34,7 +38,9 @@ if __name__ == "__main__":
               "Convolutional Neural Networks:\n"
               "AlexNet\n"
               "LeNet\n"
-              "ResNet\n"
+              "ResNet\n\n"
+              "Recurrent Neural Networks:\n"
+              "LSTM\n"
               "\n=========================")
         exit(0)
 
@@ -57,11 +63,17 @@ if __name__ == "__main__":
             if models.get(selected_model) == "CNN":
                 model = CNN(selected_model, pretrained_model=pretrained_model)
 
-            # train and evaluate
-            if pretrained_model is None:
-                model.train()
-            model.evaluate()
+            elif models.get(selected_model) == "RNN":
+                model = RNN(selected_model, pretrained_model=pretrained_model)
 
-            # export the model for importing later (save time training from scratch)
-            if pretrained_model is None:
-                model.export_model()
+            # proceed if we've got a valid model
+            if model is not None:
+
+                # train and evaluate
+                if pretrained_model is None:
+                    model.train()
+                model.evaluate()
+
+                # export the model for importing later (save time training from scratch)
+                if pretrained_model is None:
+                    model.export_model()

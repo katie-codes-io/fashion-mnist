@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from keras.datasets import fashion_mnist
 
 from lib.plotting import plot_img
+from lib.object_io import dump_model
 
 
 class Model(ABC):
@@ -14,6 +15,11 @@ class Model(ABC):
     train_y = None
     test_X = None
     test_y = None
+
+    selected_model = None
+    models = {}
+    model = None
+    batch_size = 32
 
     @abstractmethod
     def train(self):
@@ -31,13 +37,14 @@ class Model(ABC):
         :return:
         """
 
-    @abstractmethod
     def export_model(self):
         """
-        Abstract method to export the model object - must be implemented by classes inheriting Model
+        Method for exporting the model
 
         :return:
         """
+        print("Exporting object")
+        dump_model(self.model, self.selected_model)
 
     def load_data(self):
         """

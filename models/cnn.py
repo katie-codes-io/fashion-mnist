@@ -2,16 +2,11 @@ from tensorflow import keras
 from keras.utils import np_utils
 
 from models.model import Model
-from lib.object_io import dump_model, load_model
+from lib.object_io import load_model
 from lib.layers.residual_unit import ResidualUnit
 
 
 class CNN(Model):
-    # declare instance variables
-    selected_model = None
-    models = {}
-    model = None
-    batch_size = 32
 
     def __init__(self, selected_model, pretrained_model=None):
         """
@@ -94,16 +89,6 @@ class CNN(Model):
 
         # evaluate the test data
         self.model.evaluate(test_X, test_y)
-
-    def export_model(self):
-        """
-        Method for exporting the model
-
-        :return:
-        """
-        print("Exporting object")
-
-        dump_model(self.model, self.selected_model)
 
     ###################################################
     # define static methods
