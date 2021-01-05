@@ -5,8 +5,9 @@
 ## Available models
 
 ### Convolutional Neural Networks
-* AlexNet
-* LeNet-5
+* [AlexNet](https://dl.acm.org/doi/10.1145/3065386) 
+* [LeNet](https://ieeexplore.ieee.org/document/726791)
+* [ResNet](https://ieeexplore.ieee.org/document/7780459)
 
 ## How to run
 ```python main.py <model> [pretrained_model]```
@@ -15,7 +16,7 @@ Example:
 
 ```python main.py LeNet pretrained_LeNet```
 
-Run without a model argument to get a list of available models.
+Run without arguments to get a list of available models.
 
 ## Results
 
@@ -23,6 +24,7 @@ Based on training with 60,000 images and testing with 10,000 images from the Fas
 
 | Model | Accuracy | Precision | Recall |  
 | ----- | -------- | --------- | ------ |
-| AlexNet | 0.9135 | 0.9162 | 0.9118 |
-| LeNet-5 | 0.8910 | 0.9002 | 0.8835 |
+| AlexNet | 0.9060 | 0.9104 | 0.9010 |
+| LeNet-5 | 0.8926 | 0.8991 | 0.8880 |
+| ResNet  | 0.9111 | 0.9133 | 0.9096 |git 
 

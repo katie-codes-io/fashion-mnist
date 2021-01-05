@@ -11,7 +11,8 @@ if __name__ == "__main__":
     models = {
         # CNN
         "AlexNet": "CNN",
-        "LeNet": "CNN"
+        "LeNet": "CNN",
+        "ResNet": "CNN"
     }
 
     # get command line args
@@ -33,6 +34,7 @@ if __name__ == "__main__":
               "Convolutional Neural Networks:\n"
               "AlexNet\n"
               "LeNet\n"
+              "ResNet\n"
               "\n=========================")
         exit(0)
 

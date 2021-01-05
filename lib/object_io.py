@@ -3,6 +3,8 @@ import pickle
 import joblib
 import keras
 
+from lib.layers.residual_unit import ResidualUnit
+
 
 def dump_object(obj, name, directory='objects', numpy=False):
     """
@@ -103,7 +105,7 @@ def load_model(name, directory='trained_models'):
 
     # load the object
     if os.path.exists(filename):
-        return keras.models.load_model(filename)
+        return keras.models.load_model(filename, custom_objects={"ResidualUnit": ResidualUnit})
 
     else:
         print(f"{filename} model does not exist. Exiting.")
