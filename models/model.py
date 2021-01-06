@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from keras.datasets import fashion_mnist
+import numpy as np
 
-from lib.plotting import plot_img
+from lib.plotting import plot_examples
 from lib.object_io import dump_model
 
 
@@ -55,5 +56,15 @@ class Model(ABC):
         print("Loading data")
         (self.train_X, self.train_y), (self.test_X, self.test_y) = fashion_mnist.load_data()
 
-        # plot a test image
-        plot_img(self.train_X[0], name="test_mnist")
+        # get a test image for each class (just grabbing the first occurrence)
+        imgs = []
+        for i in range(0, 10):
+            index = np.argmax(self.train_y == i)
+            imgs.append(self.train_X[index])
+
+        # set image labels
+        labels = ["0: T-shirt", "1: Trousers", "2: Pullover", "3: Dress", "4: Coat", "5: Sandal", "6: Shirt", "7: Sneaker", "8: Bag", "9: Ankle boot"]
+
+        # plot the images
+        plot_examples(imgs, name="mnist_examples", labels=labels)
+
