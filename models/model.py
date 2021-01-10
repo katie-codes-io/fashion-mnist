@@ -18,6 +18,7 @@ class Model(ABC):
     test_y = None
 
     selected_model = None
+    name = None
     models = {}
     model = None
     batch_size = 32
@@ -46,7 +47,7 @@ class Model(ABC):
         :return:
         """
         print("Exporting object")
-        dump_model(self.model, self.selected_model)
+        dump_model(self.model, self.name)
 
     def load_data(self):
         """

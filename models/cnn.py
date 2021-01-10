@@ -10,15 +10,17 @@ from lib.plotting import plot_confusion_matrix
 
 class CNN(Model):
 
-    def __init__(self, selected_model, pretrained_model=None):
+    def __init__(self, selected_model, save_name=None, pretrained_model=None):
         """
         Constructor
 
         :param selected_model: string specifying the model to use
+        :param save_name: name to save model to, defaults to None if not supplied
         :param pretrained_model: pretrained model, None if not supplied
         """
         print(f"Convolutional Neural Network [{selected_model}]")
         self.selected_model = selected_model
+        self.name = save_name
         self.load_data()
 
         if pretrained_model is not None:
@@ -47,7 +49,7 @@ class CNN(Model):
                        "Deep residual learning for image recognition."
                        "In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778)."
             }
-    }
+        }
 
     def train(self):
         """

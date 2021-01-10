@@ -20,18 +20,21 @@ if __name__ == "__main__":
     }
 
     # get command line args
-    args = sys.argv
+    args = sys.argv[1:]
 
     # check length of arguments
-    if len(args) < 2 or len(args) > 3:
+    if len(args) == 0:
         print("=========================\n"
-              "Correct syntax: python fashion-mnist.py <model> [pretrained_model]\n"
-              "e.g. python fashion-mnist.py LeNet pretrained_LeNet\n\n"
+              "Correct syntax: python fashion-mnist.py -m [model] -s [model_name] -p [pretrained_model]\n"
+              "To train a model and also save it: python fashion-mnist.py -m LeNet -s pretrained_LeNet\n"
+              "To load a pre-trained model: python fashion-mnist.py -m LeNet -p pretrained_LeNet\n\n"
               "=========================\n"
               "Params\n"
               "=========================\n"
-              "model: name of model to use, must match the name of a model in the list below (mandatory)\n"
-              "pretrained_model: name of pretrained model to load (optional)\n\n"
+              "-m [model]: name of model to use, must match the name of a model in the list below (mandatory)\n"
+              "-s [model_name]: save trained model by supplying a name (by default the trained model is not saved)."
+              "If supplied, -p will be ignored\n"
+              "-p [pretrained_model]: name of pretrained model to load\n\n"
               "=========================\n"
               "Models available\n"
               "=========================\n"
@@ -45,7 +48,46 @@ if __name__ == "__main__":
         exit(0)
 
     else:
-        selected_model = args[1]
+
+        # set defaults
+        selected_model = None
+        save_name = None
+        pretrained_model = None
+
+        # check supplied params
+        if "-m" in args:
+            # check for supplied name
+            m_index = args.index("-m") + 1
+            try:
+                selected_model = args[m_index]
+            except IndexError:
+                print(f"Supply a model name with -m. Exiting.")
+                exit(0)
+        else:
+            # this is a mandatory param so exit if missing
+            print(f"Supply a model name with -m. Exiting.")
+            exit(0)
+
+        # parse -s OR -p
+        if "-s" in args:
+            # check for supplied name
+            s_index = args.index("-s") + 1
+            try:
+                save_name = args[s_index]
+            except IndexError:
+                print(f"Supply a name for saving model with -s. Exiting.")
+                exit(0)
+
+        elif "-p" in args:
+            # check for supplied pretrained model
+            p_index = args.index("-p") + 1
+            try:
+                pretrained_model = args[p_index]
+            except IndexError:
+                print(f"Supply a pretrained model with -p. Exiting.")
+                exit(0)
+
+        # check the supplied model
         if selected_model not in models.keys():
             print(f"Model unknown: {selected_model}. Exiting.")
             exit(0)
@@ -53,18 +95,12 @@ if __name__ == "__main__":
         else:
             print(f"Running model: {selected_model}")
 
-            # check for supplied pretrained model
-            try:
-                pretrained_model = args[2]
-            except IndexError:
-                pretrained_model = None
-
             model = None
             if models.get(selected_model) == "CNN":
-                model = CNN(selected_model, pretrained_model=pretrained_model)
+                model = CNN(selected_model, save_name=save_name, pretrained_model=pretrained_model)
 
             elif models.get(selected_model) == "RNN":
-                model = RNN(selected_model, pretrained_model=pretrained_model)
+                model = RNN(selected_model, save_name=save_name, pretrained_model=pretrained_model)
 
             # proceed if we've got a valid model
             if model is not None:
@@ -75,5 +111,5 @@ if __name__ == "__main__":
                 model.evaluate()
 
                 # export the model for importing later (save time training from scratch)
-                if pretrained_model is None:
+                if save_name is not None:
                     model.export_model()
