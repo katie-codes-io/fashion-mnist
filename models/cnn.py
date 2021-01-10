@@ -1,9 +1,11 @@
+import numpy as np
 from tensorflow import keras
 from keras.utils import np_utils
 
 from models.model import Model
 from lib.object_io import load_model
 from lib.layers.residual_unit import ResidualUnit
+from lib.plotting import plot_confusion_matrix
 
 
 class CNN(Model):
@@ -89,6 +91,10 @@ class CNN(Model):
 
         # evaluate the test data
         self.model.evaluate(test_X, test_y)
+
+        # plot a confusion matrix
+        pred_y = np.argmax(self.model.predict(test_X), axis=-1)
+        plot_confusion_matrix(self.test_y, pred_y, name=f'{self.selected_model}_confusion_matrix', labels=self.labels)
 
     ###################################################
     # define static methods

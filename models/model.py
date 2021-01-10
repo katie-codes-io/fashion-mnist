@@ -21,6 +21,7 @@ class Model(ABC):
     models = {}
     model = None
     batch_size = 32
+    labels = ["0: T-shirt", "1: Trousers", "2: Pullover", "3: Dress", "4: Coat", "5: Sandal", "6: Shirt", "7: Sneaker", "8: Bag", "9: Ankle boot"]
 
     @abstractmethod
     def train(self):
@@ -62,9 +63,6 @@ class Model(ABC):
             index = np.argmax(self.train_y == i)
             imgs.append(self.train_X[index])
 
-        # set image labels
-        labels = ["0: T-shirt", "1: Trousers", "2: Pullover", "3: Dress", "4: Coat", "5: Sandal", "6: Shirt", "7: Sneaker", "8: Bag", "9: Ankle boot"]
-
         # plot the images
-        plot_examples(imgs, name="mnist_examples", labels=labels)
+        plot_examples(imgs, name="mnist_examples", labels=self.labels)
 
