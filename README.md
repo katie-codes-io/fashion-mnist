@@ -13,15 +13,15 @@
 * [LSTM](https://www.mitpressjournals.org/doi/abs/10.1162/neco.1997.9.8.1735)
 
 ## How to run
-```python main.py -m [model] -s [mode_name] -p [pretrained_model]```
+```python fashion-mnist.py -m [model] -s [model_name] -p [pretrained_model]```
 
 Example to run and save a model: 
 
-```python main.py -s LeNet -s pretrained_LeNet```
+```python fashion-mnist.py -m LeNet -s pretrained_LeNet```
 
 Example to load and run a pre-trained model: 
 
-```python main.py -s LeNet -p pretrained_LeNet```
+```python fashion-mnist.py -m LeNet -p pretrained_LeNet```
 
 Run without arguments to get a list of available models.
 
